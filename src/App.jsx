@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import profileImage from './assets/profile.jpg'
+import profileImage from './assets/profile.png'
 import './App.css'
 
 const stats = [
