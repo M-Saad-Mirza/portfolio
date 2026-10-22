@@ -1,72 +1,116 @@
+import { useEffect } from 'react'
+import profileImage from './assets/profile.jpg'
 import './App.css'
 
 const stats = [
-  { value: '7th', label: 'Semester CS Student' },
-  { value: '4+', label: 'Core Tech Areas' },
-  { value: '10+', label: 'Projects & Practice Builds' },
+  { value: '9+', label: 'Projects Built' },
+  { value: '10+', label: 'Certifications' },
+  { value: '91+', label: 'Skills & Tools' },
 ]
 
 const skillGroups = [
   {
-    title: 'Languages',
-    items: ['C++', 'Java', 'Python', 'JavaScript', 'TypeScript', 'SQL'],
+    title: 'Programming',
+    items: ['C++', 'C#', 'Java', 'Python', 'JavaScript', 'TypeScript', 'SQL', 'PHP'],
   },
   {
     title: 'Frontend',
-    items: ['React', 'Vite', 'HTML5', 'CSS3', 'Bootstrap', 'Tailwind'],
+    items: ['React', 'Next.js', 'Vite', 'HTML5', 'CSS3', 'SCSS', 'Bootstrap', 'Tailwind', 'Responsive UI'],
   },
   {
     title: 'Backend',
-    items: ['Node.js', 'Express', 'REST APIs', 'MongoDB', 'Firebase'],
+    items: ['Node.js', 'Express', 'REST APIs', 'JWT', 'MongoDB', 'Firebase', 'PostgreSQL', 'API Design'],
   },
   {
-    title: 'Tools',
-    items: ['Git', 'GitHub', 'Figma', 'Postman', 'VS Code', 'Linux'],
+    title: 'Mobile & Design',
+    items: ['Flutter', 'Android', 'UI/UX', 'Figma', 'Wireframing', 'Design Systems'],
+  },
+  {
+    title: 'Data & AI',
+    items: ['Data Structures', 'Algorithms', 'Machine Learning', 'Data Analysis', 'EDA', 'Pandas', 'NumPy'],
+  },
+  {
+    title: 'Tools & Workflow',
+    items: ['Git', 'GitHub', 'VS Code', 'Postman', 'Linux', 'Deployment', 'DevOps Basics', 'Agile'],
   },
 ]
 
 const projects = [
   {
-    name: 'Campus Connect',
-    type: 'Full-Stack Web App',
-    summary:
-      'A student community platform for announcements, events, and collaboration across departments.',
-    stack: ['React', 'Node.js', 'MongoDB'],
+    title: 'Smart Learning Platform',
+    label: 'Full-Stack Product',
+    description:
+      'A digital education platform with student dashboards, course management, and modern interactive flows.',
+    stack: ['React', 'Node.js', 'MongoDB', 'Tailwind'],
   },
   {
-    name: 'Smart Task Manager',
-    type: 'Productivity Dashboard',
-    summary:
-      'A task tracking app with deadline planning, progress monitoring, and clean user workflows.',
-    stack: ['JavaScript', 'CSS', 'Local Storage'],
+    title: 'E-Commerce Experience',
+    label: 'Marketplace UI',
+    description:
+      'A polished storefront experience with product discovery, cart logic, and conversion-focused design.',
+    stack: ['React', 'JavaScript', 'CSS', 'API Integration'],
   },
   {
-    name: 'Portfolio Builder',
-    type: 'Personal Brand Project',
-    summary:
-      'A reusable portfolio template designed for developers to showcase projects, skills, and contact info.',
-    stack: ['React', 'Responsive UI', 'Deployment'],
+    title: 'Task & Productivity Suite',
+    label: 'Workflow App',
+    description:
+      'A productivity tool for planning tasks, tracking deadlines, and visualizing personal performance.',
+    stack: ['JavaScript', 'Local Storage', 'Bootstrap', 'UI/UX'],
   },
+  {
+    title: 'Portfolio Builder',
+    label: 'Personal Brand Project',
+    description:
+      'A reusable portfolio system designed for developers and creators to showcase work elegantly.',
+    stack: ['React', 'Vite', 'Responsive Design', 'Deployment'],
+  },
+  {
+    title: 'Campus Connect App',
+    label: 'Community Platform',
+    description:
+      'A student-first web experience for announcements, events, collaboration, and engagement.',
+    stack: ['React', 'Firebase', 'UI Design', 'Full Stack'],
+  },
+  {
+    title: 'AI-Assisted Utilities',
+    label: 'Automation Tools',
+    description:
+      'Practical smart utilities that simplify repetitive tasks and improve everyday productivity.',
+    stack: ['Python', 'Automation', 'Data Processing', 'ML'],
+  },
+]
+
+const certifications = [
+  'Google IT Support',
+  'Cisco Networking Essentials',
+  'Python for Everybody',
+  'Java Programming',
+  'Web Development Fundamentals',
+  'SQL & Database Basics',
+  'UI/UX Design Principles',
+  'Frontend Development',
+  'Backend API Development',
+  'Introduction to AI & ML',
 ]
 
 const timeline = [
   {
+    period: 'Current',
     title: 'Computer Science Student',
-    period: 'Current • 7th Semester',
     description:
-      'Focused on algorithms, software design, databases, web technologies, and applied engineering projects.',
+      'Continuously building technical depth in software engineering, problem solving, web technologies, and product thinking.',
   },
   {
-    title: 'Problem Solving & Development',
     period: 'Ongoing',
+    title: 'Project-Driven Learning',
     description:
-      'Building projects around web development, UI/UX, backend logic, and modern JavaScript frameworks.',
+      'Creating full-stack and front-end products that combine design, logic, and performance to solve real-world challenges.',
   },
   {
-    title: 'Growth & Learning',
-    period: 'Continuous',
+    period: 'Focus',
+    title: 'Growth & Innovation',
     description:
-      'Exploring emerging tools, clean architecture, and practical problem-solving for real-world software products.',
+      'Exploring new tools, improving architecture, and developing a strong foundation for future software opportunities.',
   },
 ]
 
@@ -75,25 +119,42 @@ const contactLinks = [
     label: 'LinkedIn',
     href: 'https://www.linkedin.com/in/muhammad-saad-mirza-107b3b2ba?utm_source=share_via&utm_content=profile&utm_medium=member_android',
   },
-  {
-    label: 'GitHub',
-    href: '#',
-  },
-  {
-    label: 'Email',
-    href: '#',
-  },
+  { label: 'GitHub', href: 'https://github.com/' },
+  { label: 'Email', href: 'mailto:smirza0307@gmail.com' },
 ]
 
 function App() {
+  useEffect(() => {
+    const revealItems = document.querySelectorAll('.reveal')
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible')
+          }
+        })
+      },
+      { threshold: 0.18 },
+    )
+
+    revealItems.forEach((item) => observer.observe(item))
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <div className="portfolio-shell">
-      <header className="topbar container">
+      <div className="orb orb-one" aria-hidden="true" />
+      <div className="orb orb-two" aria-hidden="true" />
+      <div className="orb orb-three" aria-hidden="true" />
+
+      <header className="topbar container reveal">
         <div className="brand">MS</div>
         <nav className="nav" aria-label="Main navigation">
           <a href="#about">About</a>
           <a href="#skills">Skills</a>
           <a href="#projects">Projects</a>
+          <a href="#certifications">Certifications</a>
           <a href="#contact">Contact</a>
         </nav>
         <a
@@ -107,16 +168,16 @@ function App() {
       </header>
 
       <main>
-        <section className="hero container">
+        <section className="hero container reveal">
           <div className="hero-copy">
-            <p className="eyebrow">Computer Science Student • Developer • Problem Solver</p>
+            <p className="eyebrow">Computer Science Student • Software Developer • Problem Solver</p>
             <h1>
-              I build <span>modern digital experiences</span> with code and creativity.
+              Building <span>clean digital experiences</span> with code, design, and purpose.
             </h1>
             <p className="lead">
-              I’m Muhammad Saad Mirza, a 7th semester CS student with hands-on interest in
-              software engineering, web development, UI/UX, and building practical projects
-              that solve real problems.
+              I’m Muhammad Saad Mirza, a Computer Science student focused on software development,
+              user-centered design, and building impactful web products. I enjoy turning complex
+              ideas into polished, practical, and scalable solutions.
             </p>
             <div className="hero-actions">
               <a className="primary-btn" href="#projects">
@@ -136,43 +197,40 @@ function App() {
             </div>
           </div>
 
-          <div className="hero-panel" aria-label="Profile summary card">
-            <div className="profile-badge">MS</div>
-            <h2>Muhammad Saad Mirza</h2>
-            <p>7th Semester CS Student</p>
-            <ul>
-              <li>Full-Stack Learning</li>
-              <li>Problem Solving</li>
-              <li>Web Development</li>
-              <li>UI/UX Thinking</li>
-            </ul>
+          <div className="hero-visual reveal" aria-label="Profile image card">
+            <div className="photo-shell">
+              <img src={profileImage} alt="Muhammad Saad Mirza" />
+            </div>
+            <div className="floating-card">
+              <span>Available for opportunities</span>
+              <strong>Software Developer</strong>
+            </div>
           </div>
         </section>
 
-        <section id="about" className="section container">
+        <section id="about" className="section container reveal">
           <div className="section-heading">
             <p className="eyebrow">About Me</p>
-            <h2>Driven by curiosity and code.</h2>
+            <h2>Driven by curiosity and results.</h2>
           </div>
           <div className="about-grid">
             <p>
-              I’m a Computer Science student currently in my 7th semester, passionate about
-              learning modern technologies and building software that looks good and works
-              well. My interests include web development, front-end design, problem solving,
-              clean architecture, and turning ideas into functional products.
+              I am a Computer Science student with a strong interest in software development,
+              product building, and user-focused experiences. I enjoy learning modern technologies
+              and applying them to real-world outcomes through practical and polished work.
             </p>
             <p>
-              I enjoy exploring different domains within software engineering, from user-facing
-              interfaces to backend logic and database systems. I’m always eager to take on new
-              challenges, improve my skills, and contribute to meaningful projects.
+              My focus spans front-end interfaces, back-end logic, design thinking, and problem
+              solving. I like building systems that are not only functional but also intuitive,
+              scalable, and visually compelling for real users.
             </p>
           </div>
         </section>
 
-        <section id="skills" className="section container">
+        <section id="skills" className="section container reveal">
           <div className="section-heading">
             <p className="eyebrow">Skills</p>
-            <h2>Tools, technologies, and strengths.</h2>
+            <h2>91+ technical skills and growing expertise.</h2>
           </div>
           <div className="skill-grid">
             {skillGroups.map((group) => (
@@ -190,17 +248,17 @@ function App() {
           </div>
         </section>
 
-        <section id="projects" className="section container">
+        <section id="projects" className="section container reveal">
           <div className="section-heading">
             <p className="eyebrow">Projects</p>
-            <h2>Ideas shaped into practical work.</h2>
+            <h2>Work that reflects creativity and execution.</h2>
           </div>
           <div className="projects-grid">
             {projects.map((project) => (
-              <article key={project.name} className="project-card">
-                <span className="project-type">{project.type}</span>
-                <h3>{project.name}</h3>
-                <p>{project.summary}</p>
+              <article key={project.title} className="project-card">
+                <span className="project-type">{project.label}</span>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
                 <div className="project-stack">
                   {project.stack.map((tech) => (
                     <span key={tech}>{tech}</span>
@@ -211,16 +269,30 @@ function App() {
           </div>
         </section>
 
-        <section className="section container">
+        <section id="certifications" className="section container reveal">
+          <div className="section-heading">
+            <p className="eyebrow">Certifications</p>
+            <h2>Continuous learning and validated growth.</h2>
+          </div>
+          <div className="cert-grid">
+            {certifications.map((item) => (
+              <div key={item} className="cert-pill">
+                {item}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="section container reveal">
           <div className="section-heading">
             <p className="eyebrow">Journey</p>
-            <h2>Learning, building, and growing.</h2>
+            <h2>Ongoing focus on learning, building, and evolving.</h2>
           </div>
           <div className="timeline">
             {timeline.map((item) => (
               <div key={item.title} className="timeline-item">
                 <div className="timeline-dot" aria-hidden="true"></div>
-                <div>
+                <div className="timeline-copy">
                   <p className="timeline-period">{item.period}</p>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
@@ -231,17 +303,17 @@ function App() {
         </section>
       </main>
 
-      <footer id="contact" className="footer container">
+      <footer id="contact" className="footer container reveal">
         <div className="contact-card">
           <div>
             <p className="eyebrow">Let’s connect</p>
-            <h2>Open to opportunities, collaboration, and learning.</h2>
+            <h2>Open to opportunities, collaboration, and impactful work.</h2>
           </div>
           <div className="contact-links">
             {contactLinks.map((link) => (
               <a
                 key={link.label}
-                href={link.href === '#' ? '#contact' : link.href}
+                href={link.href}
                 target={link.href.startsWith('http') ? '_blank' : undefined}
                 rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
               >
